@@ -1,4 +1,6 @@
 #!/bin/sh
+# dont use this command. execute same command at command-line.
+exit;
 
 CLUSTER=slony_example
 DBNAME1=pgbench

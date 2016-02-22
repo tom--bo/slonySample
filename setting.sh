@@ -1,13 +1,3 @@
-# Configuring the databases for replication
-# ------------------------------------------
-# 
-# Creating the configuration tables, stored procedures, triggers and
-# setting up the configuration is done with the slonik command.  It is a
-# specialized scripting aid that mostly calls stored procedures in the
-# node databases.  The script to create the initial configuration for a
-# simple master-slave setup of our pgbench databases looks like this:
-# Script slony_sample1_setup.sh
-
 #!/bin/sh
 
 CLUSTER=slony_example
@@ -71,12 +61,10 @@ slonik <<_EOF_
     # use a separate backbone network between the database servers,
     # this is the place to tell it.
     # ----
-    store node ( id = 2, comment = 'Node 2' );
+    store node ( id = 2, comment = 'Node 2' , event node=1);
     store path ( server = 1, client = 2,
         conninfo = 'dbname=$DBNAME1 host=$HOST1 user=$SLONY_USER');
     store path ( server = 2, client = 1,
         conninfo = 'dbname=$DBNAME2 host=$HOST2 user=$SLONY_USER');
-    store listen ( origin = 1, provider = 1, receiver = 2 );
-    store listen ( origin = 2, provider = 2, receiver = 1 );
 _EOF_
 
