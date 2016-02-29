@@ -2,9 +2,9 @@
 
 CLUSTER=slony_example
 DBNAME1=pgbench
-DBNAME2=pgbenchslave
-HOST1=localhost
-HOST2=localhost
+DBNAME2=pgbench
+HOST1=192.168.33.21
+HOST2=192.168.33.22
 SLONY_USER=pgsql
 PGBENCH_USER=pgbench
 
