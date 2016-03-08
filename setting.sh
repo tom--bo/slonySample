@@ -29,6 +29,7 @@ slonik <<_EOF_
     # system specific database objects.
     # ----
     init cluster ( id = 1, comment = 'Node 1' );
+    init cluster ( id = 2, comment = 'Node 2' );
 
     # ----
     # The Slony replication system organizes tables in sets.  The

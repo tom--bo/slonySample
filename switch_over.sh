@@ -8,7 +8,7 @@ HOST2=192.168.33.22
 SLONY_USER=pgsql
 
 slonik <<_EOF_
-
+    
     cluster name = $CLUSTER;
 
     node 1 admin conninfo = 'dbname=$DBNAME1 host=$HOST1 user=$SLONY_USER';
