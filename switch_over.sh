@@ -17,7 +17,6 @@ slonik <<_EOF_
     lock set (id = 1, origin = 1);
     wait for event (origin = 1, confirmed = 2);
     move set (id = 1, old origin = 1, new origin = 2);
-    echo 'Set 1 has been moved from Node 1 to Node 2';
     wait for event (origin = 1, confirmed = 2, wait on = 1);
 
 _EOF_
