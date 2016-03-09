@@ -15,8 +15,10 @@ slonik <<_EOF_
     node 2 admin conninfo = 'dbname=$DBNAME2 host=$HOST2 user=$SLONY_USER';
 
     lock set (id = 1, origin = 1);
-    wait for event (origin = 1, confirmed = 2);
+    sync (id = 1);
+    wait for event (origin = 1, confirmed = 2, wait on = 2);
     move set (id = 1, old origin = 1, new origin = 2);
+    echo 'moved the set';
     wait for event (origin = 1, confirmed = 2, wait on = 1);
 
 _EOF_
