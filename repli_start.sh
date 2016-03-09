@@ -26,6 +26,6 @@ slonik <<_EOF_
     # ----
     # Node 2 subscribes set 1
     # ----
-    subscribe set ( id = 1, provider = 1, receiver = 2, forward = no);
+    subscribe set ( id = 1, provider = 1, receiver = 2, forward = yes);
 _EOF_
 
