@@ -3,8 +3,10 @@
 CLUSTER=slony_example
 DBNAME1=pgbench
 DBNAME2=pgbench
-HOST1=192.168.33.101
-HOST2=192.168.33.102
+DBNAME3=pgbench
+HOST1=192.168.32.11
+HOST2=192.168.32.12
+HOST2=192.168.32.13
 SLONY_USER=pgsql
 PGBENCH_USER=pgbench
 
@@ -22,6 +24,7 @@ slonik <<_EOF_
     # ----
     node 1 admin conninfo = 'dbname=$DBNAME1 host=$HOST1 user=$SLONY_USER';
     node 2 admin conninfo = 'dbname=$DBNAME2 host=$HOST2 user=$SLONY_USER';
+    node 3 admin conninfo = 'dbname=$DBNAME3 host=$HOST3 user=$SLONY_USER';
 
     # ----
     # Initialize the first node.  The id must be 1.
@@ -66,5 +69,24 @@ slonik <<_EOF_
         conninfo = 'dbname=$DBNAME1 host=$HOST1 user=$SLONY_USER');
     store path ( server = 2, client = 1,
         conninfo = 'dbname=$DBNAME2 host=$HOST2 user=$SLONY_USER');
+
+    # ---
+    # third node 
+    # ---
+    store node ( id = 3, comment = 'Node 3' , event node=1);
+    store path ( server = 1, client = 3,
+        conninfo = 'dbname=$DBNAME1 host=$HOST1 user=$SLONY_USER');
+    store path ( server = 3, client = 1,
+        conninfo = 'dbname=$DBNAME3 host=$HOST3 user=$SLONY_USER');
+
+    # ---
+    # 3nd and 3rd node 
+    # ---
+    store path ( server = 2, client = 3,
+        conninfo = 'dbname=$DBNAME2 host=$HOST2 user=$SLONY_USER');
+    store path ( server = 3, client = 2,
+        conninfo = 'dbname=$DBNAME3 host=$HOST3 user=$SLONY_USER');
+
+
 _EOF_
 
