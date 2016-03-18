@@ -6,7 +6,7 @@ DBNAME2=pgbench
 DBNAME3=pgbench
 HOST1=192.168.32.11
 HOST2=192.168.32.12
-HOST2=192.168.32.13
+HOST3=192.168.32.13
 SLONY_USER=pgsql
 PGBENCH_USER=pgbench
 
@@ -54,6 +54,7 @@ slonik <<_EOF_
     set add table ( set id = 1, origin = 1,
         id = 4, fully qualified name = 'public.pgbench_history',
         comment = 'Table history' );
+    echo 'Complete create set';
 
     # ----
     # Create the second node, tell the two nodes how to connect to 
@@ -69,23 +70,28 @@ slonik <<_EOF_
         conninfo = 'dbname=$DBNAME1 host=$HOST1 user=$SLONY_USER');
     store path ( server = 2, client = 1,
         conninfo = 'dbname=$DBNAME2 host=$HOST2 user=$SLONY_USER');
+    echo 'Complete store node 2';
 
     # ---
     # third node 
     # ---
+    echo '1: Prepare store node 3';
     store node ( id = 3, comment = 'Node 3' , event node=1);
+    echo '2: Prepare store node 3';
     store path ( server = 1, client = 3,
         conninfo = 'dbname=$DBNAME1 host=$HOST1 user=$SLONY_USER');
     store path ( server = 3, client = 1,
         conninfo = 'dbname=$DBNAME3 host=$HOST3 user=$SLONY_USER');
+    echo 'Complete store node 3';
 
     # ---
-    # 3nd and 3rd node 
+    # 2nd and 3rd node 
     # ---
     store path ( server = 2, client = 3,
         conninfo = 'dbname=$DBNAME2 host=$HOST2 user=$SLONY_USER');
     store path ( server = 3, client = 2,
         conninfo = 'dbname=$DBNAME3 host=$HOST3 user=$SLONY_USER');
+    echo 'Complete 2-3 path';
 
 
 _EOF_
