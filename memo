@@ -1,1 +1,6 @@
 pgbench -c 100 -t 1000 -U $PGBENCHUSER -h $MASTERHOST $MASTERDBNAME
+
+incrememt checkpointsegment
+
+
+
